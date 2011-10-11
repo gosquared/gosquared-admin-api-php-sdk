@@ -25,8 +25,8 @@ class GS_SDK_Transport {
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($this->ch, CURLOPT_TIMEOUT, 60);
 		$post = $this->request->get_post();
-		curl_setopt($this->ch, CURLOPT_POST, count($post));
 		$post = $this->build_post($post);
+                curl_setopt($this->ch, CURLOPT_POST, count($post));
 		$url = $this->build_url($this->sign_post($post));
 		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $post);
 		curl_setopt($this->ch, CURLOPT_URL, $url);
@@ -54,15 +54,10 @@ class GS_SDK_Transport {
 	}
 	
 	private function build_post($post){
-		$base = '';
-		foreach($post as $name=>$value){
-			if($value == NULL)continue;
-			$base .= '&' . urlencode($name) . "=" . urlencode($value);
-		}
-		$base .= '&timecode=' . gmdate('Y-m-d\TH:i:s\Z');
-		ltrim($base,'&');
-		//echo $base;
-		return $base;
+		$post['timecode'] = gmdate('Y-m-d\TH:i:s\Z');
+		$post = http_build_str($post);
+                
+		return $post;
 		
 	}
 	
