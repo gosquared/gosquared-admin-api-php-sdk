@@ -40,9 +40,7 @@ class GS_SDK_Transport {
                 $params = array(
                       'format' => 'json'
                     , 'api_key_hash' => sha1($this->request->api_key)
-                    , 'env' => GS_API_ENV
-                    , 'payment_env' => GS_API_PAYMENT_ENV
-                    , 'debug' => GS_API_DEBUG
+                    , 'env' => GS_ADMIN_SDK_API_ENV
                     , 'mode' => $this->request->mode
                     , 'sign' => $signed
                     , 'version' => $this->request->api_version

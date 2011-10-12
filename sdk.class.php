@@ -17,7 +17,7 @@ class GS_SDK{
 	public $transport;
 	
 	function __construct(){
-            if(!GS_API_KEY) throw new GS_SDK_Exception("Could not load config. Please make sure you've set up your config.inc.php file in the sdk directory: ".__DIR__);
+            if(!defined('GS_ADMIN_SDK_API_KEY')) throw new GS_SDK_Exception("Could not load config. Please make sure you've set up your config.inc.php file in the sdk directory: ".__DIR__);
 	    $this->set_auth();
 	    $this->set_scheme();
 	    $this->set_host();
@@ -26,27 +26,27 @@ class GS_SDK{
 	}
 	
 	public function set_auth($api_key = false){
-	    if(!$api_key) $api_key = GS_API_KEY;
+	    if(!$api_key) $api_key = GS_ADMIN_SDK_API_KEY;
 	    $this->api_key = $api_key;
 	}
 	
 	public function set_endpoint($endpoint = false){
-	    if(!$endpoint) $endpoint = GS_API_ENDPOINT;
+	    if(!$endpoint) $endpoint = GS_ADMIN_SDK_API_ENDPOINT;
 	    $this->endpoint = $endpoint;
 	}
 	
 	public function set_host($host = false){
-	    if(!$host) $host = GS_API_HOST;
+	    if(!$host) $host = GS_ADMIN_SDK_API_HOST;
 	    $this->host = $host;
 	}
 	
 	public function set_scheme($scheme = false){
-	    if(!$scheme) $scheme = GS_API_REQUEST_SCHEME;
+	    if(!$scheme) $scheme = GS_ADMIN_SDK_API_REQUEST_SCHEME;
 	    $this->scheme = $scheme;
 	}
         
         public function set_api_version($version = false){
-            if(!$version) $version = GS_API_VERSION;
+            if(!$version) $version = GS_ADMIN_SDK_API_VERSION;
             $this->api_version = $scheme;
         }
 	
