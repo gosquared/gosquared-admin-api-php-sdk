@@ -13,12 +13,12 @@ class func_modify_subscription extends SDK_request_model{
 	}
 }
 
-class modify_subscription_response extends GS_SDK_Response{
+class modify_subscription_response extends GS_ADMIN_SDK_Response{
 	function __construct($response_data){
 		parent::__construct($response_data);
 		$this->succeeded = $response_data['success'];
 		if(!$this->succeeded){
-			//throw new GS_SDK_Exception(join("\n\n",$this->errors));
+			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
 		}else{
 			// No return
 		}

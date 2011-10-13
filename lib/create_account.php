@@ -18,13 +18,13 @@ class func_create_account extends SDK_request_model {
 
 }
 
-class create_account_response extends GS_SDK_Response {
+class create_account_response extends GS_ADMIN_SDK_Response {
 
     function __construct($response_data) {
 	parent::__construct($response_data);
 	$this->succeeded = $response_data['success'];
 	if (!$this->succeeded) {
-	    //throw new GS_SDK_Exception(join("\n\n",$this->errors));
+	    //throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
 	} else {
 	    $this->user_id = $response_data['data']['id'];
 	}

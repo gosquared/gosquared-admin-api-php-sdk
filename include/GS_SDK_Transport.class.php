@@ -1,14 +1,14 @@
 <?php
 
 if(!function_exists('curl_init')){
-	throw new GS_SDK_Exception("GoSquared SDK requires cURL to be installed in order to run", 100);
+	throw new GS_ADMIN_SDK_Exception("GoSquared SDK requires cURL to be installed in order to run", 100);
 }
 
-define('GS_SDK_TRANSPORT_INVALID_RESPONSE', 1);
+define('GS_ADMIN_SDK_TRANSPORT_INVALID_RESPONSE', 1);
 
-class GS_SDK_Transport_Exception extends Exception {};
+class GS_ADMIN_SDK_Transport_Exception extends Exception {};
 
-class GS_SDK_Transport {
+class GS_ADMIN_SDK_Transport {
 	private $request;
 	public $raw_response;
 	function __construct($request){
@@ -66,7 +66,7 @@ class GS_SDK_Transport {
 	private function process_response($data){
 	    $decode = json_decode($data,true);
 	    if(!$decode){
-		throw new GS_SDK_Transport_Exception('Could not decode response; invalid format', GS_SDK_TRANSPORT_INVALID_RESPONSE);
+		throw new GS_ADMIN_SDK_Transport_Exception('Could not decode response; invalid format', GS_ADMIN_SDK_TRANSPORT_INVALID_RESPONSE);
 	    }
 		return $this->request->parse_response($decode);
 	}

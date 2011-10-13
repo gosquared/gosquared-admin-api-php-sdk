@@ -1,5 +1,5 @@
 <?php
-class GS_SDK_headers {
+class GS_ADMIN_SDK_headers {
 	public function create_account($email, $password, $first_name, $last_name, $referring_user=null){
 		$req = new create_account_request($email, $password, $first_name, $last_name, $referring_user);
 		return $this->exec($req);

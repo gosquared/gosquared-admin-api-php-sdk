@@ -10,14 +10,14 @@ array_map(function($path){
     require_once $path;    
 }, array_merge(glob(__DIR__.'/include/*.php'), glob(__DIR__.'/lib/*.php')));
 
-class GS_SDK_Exception extends Exception {};
+class GS_ADMIN_SDK_Exception extends Exception {};
 
-class GS_SDK{
+class GS_ADMIN_SDK{
 	private $host, $api_key, $endpoint, $scheme;
 	public $transport;
 	
 	function __construct(){
-            if(!defined('GS_ADMIN_SDK_API_KEY')) throw new GS_SDK_Exception("Could not load config. Please make sure you've set up your config.inc.php file in the sdk directory: ".__DIR__);
+            if(!defined('GS_ADMIN_SDK_API_KEY')) throw new GS_ADMIN_SDK_Exception("Could not load config. Please make sure you've set up your config.inc.php file in the sdk directory: ".__DIR__);
 	    $this->set_auth();
 	    $this->set_scheme();
 	    $this->set_host();
@@ -51,7 +51,7 @@ class GS_SDK{
         }
 	
 	public function exec($request){
-		$req = new GS_SDK_Transport($request);
+		$req = new GS_ADMIN_SDK_Transport($request);
 		$this->transport = $req;
 		return $req->exec();
 	}
@@ -61,7 +61,7 @@ class GS_SDK{
 		$req = $this->init_request($name, $args);
 		return $this->exec($req);
 	    }
-	    catch(GS_SDK_request_model_exception $e){
+	    catch(GS_ADMIN_SDK_request_model_exception $e){
 		return false;
 	    }
 	}

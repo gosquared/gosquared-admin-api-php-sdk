@@ -11,12 +11,12 @@ class func_set_account_plan extends SDK_request_model {
 	}
 }
 
-class set_account_plan_response extends GS_SDK_Response{
+class set_account_plan_response extends GS_ADMIN_SDK_Response{
 	function __construct($response_data){
 		parent::__construct($response_data);
 		$this->succeeded = $response_data['success'];
 		if(!$this->succeeded){
-			//throw new GS_SDK_Exception(join("\n\n",$this->errors));
+			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
 		}else{
 			// No return
 		}

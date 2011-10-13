@@ -1,6 +1,6 @@
 <?php
 
-class GS_SDK_Response{
+class GS_ADMIN_SDK_Response{
 	function __construct($response_data){
 		$this->succeeded = $response_data['success'];
 		if(!$response_data['success']){
