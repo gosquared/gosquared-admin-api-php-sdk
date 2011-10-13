@@ -53,7 +53,7 @@ class GS_ADMIN_SDK_Transport {
 	
 	private function build_post($post){
 		$post['timecode'] = gmdate('Y-m-d\TH:i:s\Z');
-		$post = http_build_str($post);
+		$post = http_build_query($post);
                 
 		return $post;
 		

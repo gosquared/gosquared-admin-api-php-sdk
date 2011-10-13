@@ -47,7 +47,7 @@ class GS_ADMIN_SDK{
         
         public function set_api_version($version = false){
             if(!$version) $version = GS_ADMIN_SDK_API_VERSION;
-            $this->api_version = $scheme;
+            $this->api_version = $version;
         }
 	
 	public function exec($request){

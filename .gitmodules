@@ -1,3 +1,0 @@
-[submodule "test/phpunit"]
-	path = test/phpunit
-	url = git@github.com:TheDeveloper/phpunit.git
