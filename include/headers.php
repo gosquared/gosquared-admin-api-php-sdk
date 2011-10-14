@@ -1,4 +1,5 @@
 <?php
+/** Deprecated class, kept around mainly as a description of method signatures **/
 class GS_ADMIN_SDK_headers {
 	public function create_account($email, $password, $first_name, $last_name, $referring_user=null){
 		$req = new create_account_request($email, $password, $first_name, $last_name, $referring_user);

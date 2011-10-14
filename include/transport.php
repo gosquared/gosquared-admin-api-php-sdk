@@ -8,7 +8,7 @@ define('GS_ADMIN_SDK_TRANSPORT_INVALID_RESPONSE', 1);
 
 class GS_ADMIN_SDK_Transport_Exception extends Exception {};
 
-class GS_ADMIN_SDK_Transport {
+class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
 	private $request;
 	public $raw_response;
 	function __construct($request){
@@ -30,6 +30,9 @@ class GS_ADMIN_SDK_Transport {
 		$url = $this->build_url($this->sign_post($post));
 		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $post);
 		curl_setopt($this->ch, CURLOPT_URL, $url);
+                if(GS_ADMIN_SDK_DEBUG){
+                    curl_setopt($this->ch, CURLOPT_VERBOSE, true);
+                }
 		$resp = curl_exec($this->ch);
 		$this->raw_response = $resp;
 		return $this->process_response($resp);
@@ -47,6 +50,10 @@ class GS_ADMIN_SDK_Transport {
                 );
 		$query = http_build_query($params);
                 $base .= $query;
+                
+                if(GS_ADMIN_SDK_DEBUG){
+                    echo $base;
+                }
                 
 		return $base;
 	}

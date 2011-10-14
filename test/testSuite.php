@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../sdk.class.php');
+require_once(__DIR__.'/../sdk.php');
 
 class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
     

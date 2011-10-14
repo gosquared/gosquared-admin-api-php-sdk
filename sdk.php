@@ -12,7 +12,7 @@ array_map(function($path){
 
 class GS_ADMIN_SDK_Exception extends Exception {};
 
-class GS_ADMIN_SDK{
+class GS_ADMIN_SDK extends GS_ADMIN_SDK_core {
 	private $host, $api_key, $endpoint, $scheme;
 	public $transport;
 	
