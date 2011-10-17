@@ -15,10 +15,11 @@ class set_account_plan_response extends GS_ADMIN_SDK_Response{
 	function __construct($response_data){
 		parent::__construct($response_data);
 		$this->succeeded = $response_data['success'];
-		if(!$this->succeeded){
+		if(!$this->succeeded){ 
 			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
 		}else{
-			// No return
+      $this->user_id = $response_data['data']['user_id'];
+      $this->plan_settings = $response_data['data']['plan_settings'];
 		}
 	}
 }

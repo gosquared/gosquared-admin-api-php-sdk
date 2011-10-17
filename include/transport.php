@@ -40,14 +40,17 @@ class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
 //            curl_setopt($this->ch, CURLOPT_VERBOSE, true);
 //        }
         $resp = curl_exec($this->ch);
-        if(!$resp){
+        $info = curl_getinfo($this->ch);
+        if($resp === false){
             // cURL error
             throw new GS_ADMIN_SDK_Transport_Exception(curl_error($this->ch), curl_errno($this->ch));
         }
+        elseif(!$resp){
+          // Empty response
+          throw new GS_ADMIN_SDK_Transport_Exception("Empty response from API endpoint. cURL info:\r\n".print_r($info, true), GS_ADMIN_SDK_TRANSPORT_INVALID_RESPONSE);
+        }
         $this->raw_response = $resp;
-        ob_flush();
-        var_dump($this->raw_response);
-        $dumpres = ob_get_clean();
+        $dumpres = var_export($this->raw_response, true);
         $str = "\r\n\r\nRAW RESPONSE: $dumpres";
         $this->debug($str);
         return $this->process_response($resp);
@@ -74,6 +77,8 @@ class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
     private function build_post($post) {
         $post['timecode'] = gmdate('Y-m-d\TH:i:s\Z');
         $post = http_build_query($post);
+
+        $this->debug("Raw POST: $post");
 
         return $post;
     }

@@ -12,7 +12,7 @@ class GS_ADMIN_SDK_core{
 //        if(PHP_SAPI == 'cli'){
 //            // TODO: output with colours :-)
 //        }
-        echo $str;
+        echo "\r\n$str";
     }
     
 }

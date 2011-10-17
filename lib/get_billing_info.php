@@ -18,7 +18,7 @@ class get_billing_info_response extends GS_ADMIN_SDK_Response{
 		if(!$this->succeeded){
 			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
 		}else{
-			$this->billing_details = $response_data['data'];
+			$this->billing_info = $response_data['data'];
 		}
 	}
 }

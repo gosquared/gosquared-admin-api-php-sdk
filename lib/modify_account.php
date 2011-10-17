@@ -1,7 +1,7 @@
 <?php
 
 class func_modify_account extends SDK_request_model{
-	public $mode = 'create_account';
+	public $mode = 'modify_account';
 	protected $params = array(
 		'user_id' ,
 		'email' ,
@@ -25,7 +25,7 @@ class modify_account_response extends GS_ADMIN_SDK_Response{
 		if(!$this->succeeded){
 			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
 		}else{
-			//$this->user_id = $response_data['data']['id'];
+			$this->user_id = $response_data['data']['user_id'];
 		}
 	}
 }
