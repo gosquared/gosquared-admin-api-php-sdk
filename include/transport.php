@@ -23,7 +23,7 @@ class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
 
     public function exec() {
         $this->ch = curl_init();
-        if ($this->request->host == 'localhost') {
+        if (GS_ADMIN_SDK_API_ENV != 'production') {
             //$this->request->scheme = "http";
             curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
         }
@@ -36,11 +36,20 @@ class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
         $url = $this->build_url($this->sign_post($post));
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, $post);
         curl_setopt($this->ch, CURLOPT_URL, $url);
-        if (GS_ADMIN_SDK_DEBUG) {
-            curl_setopt($this->ch, CURLOPT_VERBOSE, true);
-        }
+//        if (GS_ADMIN_SDK_DEBUG) {
+//            curl_setopt($this->ch, CURLOPT_VERBOSE, true);
+//        }
         $resp = curl_exec($this->ch);
+        if(!$resp){
+            // cURL error
+            throw new GS_ADMIN_SDK_Transport_Exception(curl_error($this->ch), curl_errno($this->ch));
+        }
         $this->raw_response = $resp;
+        ob_flush();
+        var_dump($this->raw_response);
+        $dumpres = ob_get_clean();
+        $str = "\r\n\r\nRAW RESPONSE: $dumpres";
+        $this->debug($str);
         return $this->process_response($resp);
     }
 
@@ -57,9 +66,7 @@ class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
         $query = http_build_query($params);
         $base .= $query;
 
-        if (GS_ADMIN_SDK_DEBUG) {
-            echo $base;
-        }
+        $this->debug("URL requested:\r\n$base");
 
         return $base;
     }

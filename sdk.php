@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.inc.php'))
 {
 	@include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.inc.php';
