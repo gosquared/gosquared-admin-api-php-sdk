@@ -1,6 +1,6 @@
 <?php
 
-class func_get_account extends GS_ADMIN_SDKrequest_model {
+class func_get_account extends GS_ADMIN_SDK_request_model {
 	public $mode = 'get_account';
 	protected $params = array(
 	    'user_id'
