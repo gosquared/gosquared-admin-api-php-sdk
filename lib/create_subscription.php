@@ -1,6 +1,6 @@
 <?php
 
-class func_create_subscription extends SDK_request_model {
+class func_create_subscription extends GS_ADMIN_SDK_request_model {
 	public $mode = 'create_subscription';
 	protected $params = array(
 	    'user_id',

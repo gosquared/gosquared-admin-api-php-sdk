@@ -1,6 +1,6 @@
 <?php
 
-class func_create_site extends SDK_request_model{
+class func_create_site extends GS_ADMIN_SDK_request_model{
 	public $mode = 'create_site';
 	protected $params= array(
 		'user_id',

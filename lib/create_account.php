@@ -1,6 +1,6 @@
 <?php
 
-class func_create_account extends SDK_request_model {
+class func_create_account extends GS_ADMIN_SDK_request_model {
 
     public $mode = 'create_account';
     protected $params = array(

@@ -60,7 +60,7 @@ class GS_ADMIN_SDK extends GS_ADMIN_SDK_core {
       $req = $this->init_request($name, $args);
       return $this->exec($req);
     }
-    catch(GS_ADMIN_SDK_request_model_exception $e){
+    catch(GS_ADMIN_GS_ADMIN_SDK_request_model_exception $e){
       return false;
     }
   }

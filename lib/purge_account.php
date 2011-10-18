@@ -1,6 +1,6 @@
 <?php
 
-class func_purge_account extends SDK_request_model {
+class func_purge_account extends GS_ADMIN_SDK_request_model {
 	public $mode = 'purge_account';
 	protected $params = array(
 		'user_id'

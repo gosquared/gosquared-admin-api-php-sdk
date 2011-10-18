@@ -1,10 +1,5 @@
 <?php
-/**
- * Description of SDK_request_model
- *
- * @author Geoff
- */
-class SDK_request_model {
+class GS_ADMIN_SDK_request_model {
     public $method = 'POST';
     public $mode, $host, $endpoint, $scheme, $api_key;
     

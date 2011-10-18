@@ -1,6 +1,6 @@
 <?php
 
-class func_modify_account extends SDK_request_model{
+class func_modify_account extends GS_ADMIN_SDK_request_model{
 	public $mode = 'modify_account';
 	protected $params = array(
 		'user_id' ,

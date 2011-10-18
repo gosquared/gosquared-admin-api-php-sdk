@@ -1,6 +1,6 @@
 <?php
 
-class func_get_billing_info extends SDK_request_model {
+class func_get_billing_info extends GS_ADMIN_SDK_request_model {
 	public $mode = 'get_billing_info';
 	protected $params = array(
 	    'user_id'
