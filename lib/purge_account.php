@@ -3,7 +3,7 @@
 class func_purge_account extends SDK_request_model {
 	public $mode = 'purge_account';
 	protected $params = array(
-		'email'
+		'user_id'
 	);
 	public function parse_response($data){
 		return new purge_account_response($data);

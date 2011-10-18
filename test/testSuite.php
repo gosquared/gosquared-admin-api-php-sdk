@@ -125,8 +125,6 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
     }
-
-
    
     /**
      * @depends testCreateAccount
@@ -141,6 +139,68 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
     }
+
+    /**
+     * @depends testCreateAccount
+     */
+
+    public function testModifySubscription($createAccountResponse){
+      $r = $this->_sdk->modify_subscription(
+              $createAccountResponse->user_id
+              , 'pro'
+              , 'now'
+      );
+      $this->assertContainsOnly('object', array($r));
+      $this->objectHasAttribute('succeeded', $r);
+      $this->assertTrue($r->succeeded);
+    }
+
+     /**
+     * @depends testCreateAccount
+     */
+
+    public function testGetSubscription($createAccountResponse){
+      $r = $this->_sdk->get_subscription($createAccountResponse->user_id);
+      $this->assertContainsOnly('object', array($r));
+      $this->objectHasAttribute('succeeded', $r);
+      $this->assertTrue($r->succeeded);
+      $this->objectHasAttribute('plan', $r->subscription);
+      $this->assertEquals('pro', $r->subscription['plan']['plan_code']);
+    }
+
+     /**
+     * @depends testCreateAccount
+     */
+
+    public function testCancelSubscription($createAccountResponse){
+      $r = $this->_sdk->cancel_subscription($createAccountResponse->user_id);
+      $this->assertContainsOnly('object', array($r));
+      $this->objectHasAttribute('succeeded', $r);
+      $this->assertTrue($r->succeeded);
+    }
+
+     /**
+     * @depends testCreateAccount
+     */
+
+    public function testReactivateSubscription($createAccountResponse){
+      $r = $this->_sdk->reactivate_subscription($createAccountResponse->user_id);
+      $this->assertContainsOnly('object', array($r));
+      $this->objectHasAttribute('succeeded', $r);
+      $this->assertTrue($r->succeeded);
+    }
+
+    /**
+     * @depends testCreateAccount
+     */
+
+    public function testPurgeAccount($createAccountResponse){
+      $r = $this->_sdk->purge_account($createAccountResponse->user_id);
+      $this->assertContainsOnly('object', array($r));
+      $this->objectHasAttribute('succeeded', $r);
+      $this->assertTrue($r->succeeded);
+    }
+
 
     public function providerAccountAttributes(){
         $email = 'geoff+'.round(mt_rand()*10000).'@gosquared.com';
