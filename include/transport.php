@@ -23,7 +23,7 @@ class GS_ADMIN_SDK_Transport extends GS_ADMIN_SDK_core {
 
     public function exec() {
         $this->ch = curl_init();
-        if (GS_ADMIN_SDK_API_ENV != 'production') {
+        if (GS_ADMIN_SDK_API_ENV != 'production' || !preg_match('/(www\.)?gosquared\.com/i', $this->request->host)) { // If we're not conecting to gosquared.com turn off SSL peer verification
             //$this->request->scheme = "http";
             curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
         }
