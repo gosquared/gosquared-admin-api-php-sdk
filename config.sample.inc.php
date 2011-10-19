@@ -1,11 +1,11 @@
 <?php
 
-define("GS_ADMIN_SDK_API_KEY", "");                           // Your API Key here
-define("GS_ADMIN_SDK_API_ENV", "production");                 // Set to sandbox to test
-define("GS_ADMIN_SDK_API_VERSION", '1.0');
+define("GS_ADMIN_SDK_API_KEY", "");                           // Your API Key here. Contact us at support@gosquared.com if you'd like access
+define("GS_ADMIN_SDK_API_ENV", "sandbox");                    // Set to sandbox when testing
+define("GS_ADMIN_SDK_API_VERSION", '1.0');                    // Set to the API version you require
 /*
  * This next option allows you to control debugging functionality. This enables verbose logging, and all requests send to the
- * GoSquared api will be logged to STDERR. Please ensure this is set to false when in production.
+ * GoSquared api will be logged to STDOUT. Please ensure this is set to false when in production.
  */
 define("GS_ADMIN_SDK_DEBUG", false);
 
