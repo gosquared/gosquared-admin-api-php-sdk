@@ -12,55 +12,88 @@
       }
       #container {
         margin: 0 auto;
-        width: 80%;
+        width: 700px;
       }
       h1 { font-size: 3.8em;  margin-bottom: 3px; }
       h1 .small { font-size: 0.4em; }
-      h1 a { text-decoration: none }
+      h1 a { text-decoration: none; }
       h2 { font-size: 1.5em; }
       h3 { text-align: center;  }
-      a { }
+      a { color: #551A8B; text-decoration: none; }
       .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-      .download { float: right; }
+      #download { float: right; }
       pre { background: #000; color: #fff; padding: 15px;}
       hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
       .footer { text-align:center; padding-top:30px; font-style: italic; }
+      #sidebar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 15px;
+      }
+      #sidebar ul{
+        list-style-type: none;
+        text-align: left;
+        margin: 0;
+        padding: 0 0 0 15px;
+      }
+
     </style>
   </head>
 
   <body>
     <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
     <div id ="wrapper">
+      <div id="sidebar">
+        <ul class="sidebar_list">
+          <li><h4><a href="#download">Download</a></h4></li>
+          <li><h4><a href="#guide">Guide</a></h4></li>
+          <li>
+            <ul>
+              <li><a href="#">Guide</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
       <div id="container">
-        <div class="download">
+        <div id="download">
           <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/zipball/master">
-            <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+            <img border="0" width="90" src="http://github.com/images/modules/download/zip.png" /></a>
           <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/tarball/master">
-            <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+            <img border="0" width="90" src="http://github.com/images/modules/download/tar.png" /></a>
         </div>
 
         <h1><a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk">GoSquared Admin API SDK</a><br />
-          <span class="small">by <a href="http://github.com/TheDeveloper">TheDeveloper</a></span></h1>
+          </h1>
 
         <div class="description">
-          PHP SDK for the GoSquared admin API
+          The official PHP SDK for the GoSquared admin API
         </div>
-
-        <h2>Authors</h2>
-        <p>Geoff Wagstaff (geoff@gosquared.com)<br/>JT (JT@gosquared.com)</p>
-        <h2>Contact</h2>
-        <p>GoSquared Support (support@gosquared.com)</p>
-
 
         <h2>Download</h2>
         <p>
-        You can download this project in either
-        <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/zipball/master">zip</a> or
-        <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/tarball/master">tar</a> formats.
+          You can download this project in either
+          <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/zipball/master">zip</a> or
+          <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/tarball/master">tar</a> formats.
         </p>
-        <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-        by running:
-      <pre>$ git clone git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
+        <p>
+          You can also clone the project with <a href="http://git-scm.com">Git</a>
+          by running:
+          <pre>$ git clone git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
+        </p>
+        <p>
+          Add it as a submodule to your project under by running:
+          <pre>$ git submodule add git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
+        </p>
+
+        <h2>Guide</h2>
+        <p>
+          <b>Note: If you don't want to use the PHP SDK, you can still follow the URL request examples.</b>
+        </p>
+
+        <h2>Configuration</h2>
+        <p>
+          
         </p>
 
         <div class="footer">
