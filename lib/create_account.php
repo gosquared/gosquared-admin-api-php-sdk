@@ -25,8 +25,6 @@ class create_account_response extends GS_ADMIN_SDK_Response {
 	$this->succeeded = $response_data['success'];
 	if (!$this->succeeded) {
 	    //throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
-	} else {
-	    $this->user_id = $response_data['data']['id'];
 	}
     }
 

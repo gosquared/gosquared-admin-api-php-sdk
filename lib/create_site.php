@@ -19,8 +19,6 @@ class create_site_response extends GS_ADMIN_SDK_Response{
 		$this->succeeded = $response_data['success'];
 		if(!$this->succeeded){
 			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
-		}else{
-			$this->site_token = $response_data['data']['site_token'];
-		}
-	}
+    }
+  }
 }

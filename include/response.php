@@ -3,6 +3,8 @@
 class GS_ADMIN_SDK_Response{
   function __construct($response_data){
     $this->succeeded = $response_data['success'];
+    $this->success =& $this->succeeded;
+    $this->successful =& $this->succeeded;
     if(!$response_data['success']){
       $this->errors = new stdClass();
       foreach($response_data['errors'] as $name=>$errorset){
@@ -21,6 +23,12 @@ class GS_ADMIN_SDK_Response{
           }
         }
       }
+    }
+    elseif(is_array($response_data['data'])){
+      $this->data = array();
+     foreach($response_data['data'] as $k => $v){
+        $this->data[$k] = $v;
+      } 
     }
   }
 }
