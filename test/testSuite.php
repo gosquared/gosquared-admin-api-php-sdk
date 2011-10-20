@@ -15,9 +15,9 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
         $this->assertContainsOnly('object', array($r));
         $this->objectHasAttribute('succeeded', $r);
         $this->assertEquals(true, $r->succeeded);
-        $this->objectHasAttribute('user_id', $r);
-        $this->assertGreaterThanOrEqual(1, $r->user_id);
-        $this->user_id = $r->user_id;
+        $this->objectHasAttribute('data', $r);
+        $this->assertArrayHasKey('user_id', $r->data);
+        $this->assertGreaterThanOrEqual(1, $r->data['user_id']);
         return $r;
     }
 
@@ -26,12 +26,13 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      * @depends testCreateAccount
      */
     public function testCreateSite($site_name, $site_url, $createAccountResponse){
-        $r = call_user_func_array(array($this->_sdk, 'create_site'), array($createAccountResponse->user_id, $site_name, $site_url));
+        $r = call_user_func_array(array($this->_sdk, 'create_site'), array($createAccountResponse->data['user_id'], $site_name, $site_url));
         $this->assertContainsOnly('object', array($r));
         $this->objectHasAttribute('succeeded', $r);
         $this->assertTrue($r->succeeded);
-        $this->objectHasAttribute('site_token', $r);
-        $this->assertRegExp('/GSN-[0-9]{6,7}-[A-Z]{1}/', $r->site_token);
+        $this->objectHasAttribute('data', $r);
+        $this->assertArrayHasKey('site_token', $r->data);
+        $this->assertRegExp('/GSN-[0-9]{6,7}-[A-Z]{1}/', $r->data['site_token']);
         return $r;
     }
     
@@ -40,11 +41,11 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testGetNoSubscription($createAccountResponse){
-      $r = $this->_sdk->get_subscription($createAccountResponse->user_id);
+      $r = $this->_sdk->get_subscription($createAccountResponse->data['user_id']);
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
-      $this->assertFalse($r->subscription);
+      $this->assertNull($r->data['subscription']);
     }
 
     /**
@@ -52,14 +53,15 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testSetAccountPlan($createAccountResponse){
-      $r = $this->_sdk->set_account_plan($createAccountResponse->user_id, 'standard');
+      $r = $this->_sdk->set_account_plan($createAccountResponse->data['user_id'], 'standard');
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
-      $this->objectHasAttribute('user_id', $r);
-      $this->assertGreaterThanOrEqual(1, $r->user_id);
-      $this->objectHasAttribute('plan_settings');
-      $this->assertContainsOnly('array', array($r->plan_settings));
+      $this->objectHasAttribute('data', $r);
+      $this->assertArrayHasKey('user_id', $r->data);
+      $this->assertGreaterThanOrEqual(1, $r->data['user_id']);
+      $this->assertArrayHasKey('plan_settings', $r->data);
+      $this->assertContainsOnly('array', array($r->data['plan_settings']));
     }
 
   /**
@@ -68,7 +70,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
 
     public function testModifyAccount($createAccountResponse){
       $r = $this->_sdk->modify_account(
-            $createAccountResponse->user_id
+            $createAccountResponse->data['user_id']
           , 'geoff+'.round(mt_rand()).'@gosquared.com'
           , mt_rand()
           , 'Joe'
@@ -80,8 +82,9 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
-      $this->objectHasAttribute('user_id', $r);
-      $this->assertGreaterThanOrEqual(1, $r->user_id);
+      $this->objectHasAttribute('data', $r);
+      $this->assertArrayHasKey('user_id', $r->data);
+      $this->assertGreaterThanOrEqual(1, $r->data['user_id']);
     }
 
     /**
@@ -89,12 +92,12 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testGetNoBillingInfo($createAccountResponse){
-      $r = $this->_sdk->get_billing_info($createAccountResponse->user_id);
+      $r = $this->_sdk->get_billing_info($createAccountResponse->data['user_id']);
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
-      $this->objectHasAttribute('billing_info', $r);
-      $this->assertFalse($r->billing_info);
+      $this->objectHasAttribute('data', $r);
+      $this->assertNull($r->data);
     }
 
     /**
@@ -103,7 +106,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
 
     public function testSetBillingInfo($createAccountResponse){
       $r = $this->_sdk->set_billing_info(
-              $createAccountResponse->user_id
+              $createAccountResponse->data['user_id']
               , array(
                 'first_name' => 'test'
                 , 'last_name' => 'test'
@@ -132,7 +135,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
 
     public function testCreateSubscription($createAccountResponse){
       $r = $this->_sdk->create_subscription(
-              $createAccountResponse->user_id
+              $createAccountResponse->data['user_id']
             , 'standard'
       );
       $this->assertContainsOnly('object', array($r));
@@ -146,7 +149,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
 
     public function testModifySubscription($createAccountResponse){
       $r = $this->_sdk->modify_subscription(
-              $createAccountResponse->user_id
+              $createAccountResponse->data['user_id']
               , 'pro'
               , 'now'
       );
@@ -160,12 +163,13 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testGetSubscription($createAccountResponse){
-      $r = $this->_sdk->get_subscription($createAccountResponse->user_id);
+      $r = $this->_sdk->get_subscription($createAccountResponse->data['user_id']);
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
-      $this->objectHasAttribute('plan', $r->subscription);
-      $this->assertEquals('pro', $r->subscription['plan']['plan_code']);
+      $this->objectHasAttribute('data', $r);
+      $this->assertArrayHasKey('plan', $r->data);
+      $this->assertEquals('pro', $r->data['plan']['plan_code']);
     }
 
      /**
@@ -173,7 +177,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testCancelSubscription($createAccountResponse){
-      $r = $this->_sdk->cancel_subscription($createAccountResponse->user_id);
+      $r = $this->_sdk->cancel_subscription($createAccountResponse->data['user_id']);
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
@@ -184,7 +188,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testReactivateSubscription($createAccountResponse){
-      $r = $this->_sdk->reactivate_subscription($createAccountResponse->user_id);
+      $r = $this->_sdk->reactivate_subscription($createAccountResponse->data['user_id']);
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
@@ -195,7 +199,7 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
      */
 
     public function testPurgeAccount($createAccountResponse){
-      $r = $this->_sdk->purge_account($createAccountResponse->user_id);
+      $r = $this->_sdk->purge_account($createAccountResponse->data['user_id']);
       $this->assertContainsOnly('object', array($r));
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
