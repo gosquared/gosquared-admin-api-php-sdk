@@ -11,13 +11,5 @@ class func_reactivate_subscription extends GS_ADMIN_SDK_request_model {
 }
 
 class reactivate_subscription_response extends GS_ADMIN_SDK_Response{
-	function __construct($response_data){
-		parent::__construct($response_data);
-		$this->succeeded = $response_data['success'];
-		if(!$this->succeeded){
-			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
-		}else{
-			//$this->subscription = $response_data['data'];
-		}
-	}
+
 }

@@ -19,13 +19,5 @@ class func_modify_account extends GS_ADMIN_SDK_request_model{
 }
 
 class modify_account_response extends GS_ADMIN_SDK_Response{
-	function __construct($response_data){
-		parent::__construct($response_data);
-		$this->succeeded = $response_data['success'];
-		if(!$this->succeeded){
-			//throw new GS_ADMIN_SDK_Exception(join("\n\n",$this->errors));
-		}else{
-			$this->user_id = $response_data['data']['user_id'];
-		}
-	}
+
 }
