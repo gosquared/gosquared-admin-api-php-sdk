@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
 
-    <title>TheDeveloper/gosquared-admin-api-php-sdk @ GitHub</title>
+    <title>GoSquared Admin API SDK</title>
 
     <style type="text/css">
       body {
@@ -155,6 +155,24 @@ $res = $gosquared_admin->create_account($email, $password, $first_name, $last_na
           <tr><td><b>api_key_hash</b></td><td>This is the 40 character sha1 hash of your API key</td></tr>
           <tr><td><b>sign</b></td><td>This is the keyed hash value of the POST body string. The hash algorithm is sha1 and the hash key is your api key.</td></tr>
         </table>
+        
+        <h3 id="handling_responses">Handling Responses</h3>
+        <p>
+          When you call an SDK method, the returned variable will be an object containing information about that action.<br />
+          The object contains the following properties:
+        </p>
+        <table>
+          <tr><td><b>succeeded</b></td><td>Boolean true or false to indicate whether the request succeeded</td></tr>
+          <tr><td><b>data</b></td><td>An array of the data sent back with the result of the action.</td></tr>
+          <tr><td><b>errors</b></td><td>An object containing information about any errors that were encountered with the action.</td></tr>
+        </table>
+        An example of handling a response:
+        <pre>
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->create_account($email, $password, $first_name, $last_name);
+$user_id = false;
+if($res->succeeded) $user_id = $res->data['user_id'];
+        </pre>
 
         <h2 id="accounts">Accounts</h2>
         <p>
@@ -187,6 +205,10 @@ email=jemima@puddledu.ck
 &first_name=Jemima
 &last_name=Puddleduck
 &timecode=2011-10-19T14%3A07%3A21Z</pre>
+        Response data:
+        <table>
+          <tr><td><b>user_id</b></td><td>The unique numerical ID of the new GoSquared account</td></tr>
+        </table>
 
 
         <h3 id="#func_modify_account">modify_account</h3>
@@ -217,6 +239,10 @@ user_id=485964685
 &password=anothertestpassword
 &first_name=John
 &timecode=2011-10-19T14%3A07%3A21Z</pre>
+        Response data:
+        <table>
+          <tr><td><b>user_id</b></td><td>The unique numerical ID of the GoSquared account that was modified</td></tr>
+        </table>
 
         <h3 id="#func_purge_account">purge_account</h3>
         <p>
@@ -239,6 +265,10 @@ $res = $gosquared_admin->purge_account($user_id);
         <pre>
 user_id=485964685
 &timecode=2011-10-19T11%3A48%3A56Z</pre>
+        Response data:
+        <table>
+          <tr><td><b>user_id</b></td><td>The unique numerical ID of the GoSquared account that was purged</td></tr>
+        </table>
 
         <h3 id="#func_set_account_plan">set_account_plan</h3>
         <p>
@@ -263,6 +293,11 @@ $res = $gosquared_admin->set_account_plan($user_id, $plan_name);
 user_id=485964685
 &plan_name=standard
 &timecode=2011-10-19T11%3A48%3A56Z</pre>
+        Response data:
+        <table>
+          <tr><td><b>user_id</b></td><td>The unique numerical ID of the GoSquared account</td></tr>
+          <tr><td><b>plan_settings</b></td><td>An array of the settings of the plan assigned to the account</td></tr>
+        </table>
 
         <h2 id="sites">Sites</h2>
         <p>
@@ -294,6 +329,11 @@ user_id=485964685
 &site_name=Test+Site
 &site_url=http%3A%2F%2Fwww.gosquared.com%2F
 &timecode=2011-10-19T11%3A48%3A30Z</pre>
+        Response data:
+        <table>
+          <tr><td><b>site_token</b></td><td>The unique site token for the new site</td></tr>
+          <tr><td><b>gstc</b></td><td>The javascript code that should be placed on the site to enable tracking</td></tr>
+        </table>
 
         <!--<h3 id="#func_cancel_subscription">cancel_subscription</h2>
         <p>
