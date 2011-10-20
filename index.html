@@ -49,11 +49,19 @@
           <li><h4><a href="#download">Download</a></h4></li>
           <li><h4><a href="#guide">Guide</a></h4></li>
           <li>
-          <ul>
-            <li><a href="#configuration">Configuration</a></li>
-            <li><a href="#accounts">Accounts</a></li>
-            <li><a href="#sites">Sites</a></li>
-          </ul>
+            <ul>
+              <li><a href="#configuration">Configuration</a></li>
+              <li><a href="#testing">Testing</a></li>
+              <li><a href="#making_requests">Making Requests</a></li>
+              <li><a href="#handling_responses">Handing Responses</a></li>
+            </ul>
+          </li>
+          <li><h4>Actions</h4></li>
+          <li>
+            <ul>
+              <li><a href="#accounts">Accounts</a></li>
+              <li><a href="#sites">Sites</a></li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -74,31 +82,31 @@
 
         <h2>Download</h2>
         <p>
-        You can download this project in either
-        <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/zipball/master">zip</a> or
-        <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/tarball/master">tar</a> formats.
+          You can download this project in either
+          <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/zipball/master">zip</a> or
+          <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk/tarball/master">tar</a> formats.
         </p>
         <p>
-        You can also clone the project with <a href="http://git-scm.com">Git</a>
-        by running:
-          <pre>$ git clone git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
-        </p>
+          You can also clone the project with <a href="http://git-scm.com">Git</a>
+          by running:</p>
+        <pre>$ git clone git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
+
         <p>
-        Add it as a submodule to your project under by running:
-          <pre>$ git submodule add git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
-        </p>
+          Add it as a submodule to your project under by running:</p>
+        <pre>$ git submodule add git://github.com/TheDeveloper/gosquared-admin-api-php-sdk</pre>
+
 
         <h2 id="guide">Guide</h2>
         <p>
-        <b>Note: If you don't want to use the PHP SDK, you can still follow the URL URL examples.</b>
+          <b>Note: If you don't want to use the PHP SDK, you can still follow the URL and POST examples.</b>
         </p>
         <p>
-        The SDK code examples are accompanied by the equivalent GET and POST URLs they generate.
+          The SDK code examples are accompanied by the equivalent URL and POST they generate.
         </p>
 
         <h3 id="configuration">Configuration</h3>
         <p>
-        You need to move config.sample.inc.php to config.inc.php, and drop in your API key. The sample config file looks like this:
+          You need to move config.sample.inc.php to config.inc.php, and drop in your API key. The sample config file looks like this:</p>
         <pre>
 define("GS_ADMIN_SDK_API_KEY", "");                           // Your API Key here. Contact us at support@gosquared.com if you'd like access
 define("GS_ADMIN_SDK_API_ENV", "sandbox");                    // Set to sandbox when testing
@@ -113,164 +121,186 @@ define("GS_ADMIN_SDK_DEBUG", false);
 define('GS_ADMIN_SDK_API_URL_SCHEME', 'https');
 define('GS_ADMIN_SDK_API_HOST', 'www.gosquared.com');
 define('GS_ADMIN_SDK_API_ENDPOINT', '/api/admin_api.php');
-          </pre>
+        </pre>
+        <p>
           We recommend running the tests only when the environment is set to "sandbox". When you're ready to go live, set this directive to "production"
         </p>
-        
-        <h3 id="#testing">Testing</h3>
+
+        <h3 id="testing">Testing</h3>
         <p>
-          The test suite is backed by PHPUnit. <a href="https://github.com/sebastianbergmann/phpunit/">Here are are instructions on installing PHPUnit</a>.<br />
+          The test suite is backed by PHPUnit. <a href="https://github.com/sebastianbergmann/phpunit/">Here are instructions on installing PHPUnit</a>.<br />
           To run the tests:
-          <pre>phpunit test/testSuite.php</pre>
+        </p>
+        <pre>phpunit test/testSuite.php</pre>
+        <p>
           The tests will fail if you have not set the configuration properly. Read about <a href="#configuration">configuration</a>.<br />
           We recommend you run the test suite to ensure that all actions are operational.
         </p>
+        
+        <h3 id="making_requests">Making Requests</h3>
+        <p>
+          The SDK automatically generates & executes the request URL, signatures and POST payloads when you call its methods.<br />
+          Each action is a method in the SDK. For example:
+        </p>
+        <pre>
+// We want to create an account. To do this, we just call the create_account method
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->create_account($email, $password, $first_name, $last_name);
+        </pre>
+        <p>
+          If you're can't use the PHP SDK, you will have to generate the request URLs yourself.<br />
+          Request URLs are documented for each action. The parameters are fairly straightforward, but <i>api_key_hash</i> and <i>sign</i> require a little more tinkering:<br />
+        </p>
+        <table>
+          <tr><td><b>api_key_hash</b></td><td>This is the 40 character sha1 hash of your API key</td></tr>
+          <tr><td><b>sign</b></td><td>This is the keyed hash value of the POST body string. The hash algorithm is sha1 and the hash key is your api key.</td></tr>
+        </table>
 
         <h2 id="accounts">Accounts</h2>
         <p>
           You create accounts for each user you want to sign up to GoSquared.
         </p>
-        
-        <h3 id="#func_create_account">create_account</h2>
+
+        <h3 id="#func_create_account">create_account</h3>
         <p>
-          Create a user account.
-          <pre>
+          Create a user account.</p>
+        <pre>
 $email = 'jemima@puddledu.ck';
 $password = 'testpassword';
 $first_name = 'Jemima';
 $last_name = 'Puddleduck';
-$admin_sdk = new GS_ADMIN_SDK();
-$res = $admin_sdk->create_account($email, $password, $first_name, $last_name);
-          </pre>
-          URL:
-          <pre>https://master.local/api/admin_api.php
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->create_account($email, $password, $first_name, $last_name);
+        </pre>
+        URL:
+        <pre>https://master.local/api/admin_api.php
   ?format=json
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=create_account
   &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
   &version=1.0</pre>
-          POST:
-          <pre>
+        POST:
+        <pre>
 email=jemima@puddledu.ck
 &password=testpassword
 &first_name=Jemima
 &last_name=Puddleduck
 &timecode=2011-10-19T14%3A07%3A21Z</pre>
-        </p>
-        
-        <h3 id="#func_modify_account">modify_account</h2>
+
+
+        <h3 id="#func_modify_account">modify_account</h3>
         <p>
           Modify a user account. Leave any arguments you don't wish to modify as null.
-          <pre>
+        </p>
+        <pre>
 $user_id = 485964685;
 $email = 'john@puddledu.ck';
 $password = 'anothertestpassword';
 $first_name = 'John';
 $last_name = null;
-$admin_sdk = new GS_ADMIN_SDK();
-$res = $admin_sdk->modify_account($user_id, $email, $password, $first_name, $last_name);
-          </pre>
-          URL:
-          <pre>https://master.local/api/admin_api.php
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->modify_account($user_id, $email, $password, $first_name, $last_name);
+        </pre>
+        URL:
+        <pre>https://master.local/api/admin_api.php
   ?format=json
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=modify_account
   &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
   &version=1.0</pre>
-          POST:
-          <pre>
+        POST:
+        <pre>
 user_id=485964685
 &email=john@puddledu.ck
 &password=anothertestpassword
 &first_name=John
 &timecode=2011-10-19T14%3A07%3A21Z</pre>
-        </p>
-        
-        <h3 id="#func_purge_account">purge_account</h2>
+
+        <h3 id="#func_purge_account">purge_account</h3>
         <p>
           Purge an account. <b>Warning: This deletes everything for the account!</b>
-          <pre>
+        </p>
+        <pre>
 $user_id = 485964685;
-$admin_sdk = new GS_ADMIN_SDK();
-$res = $admin_sdk->purge_account($user_id);
-          </pre>
-          URL:
-          <pre>https://master.local/api/admin_api.php
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->purge_account($user_id);
+        </pre>
+        URL:
+        <pre>https://master.local/api/admin_api.php
   ?format=json
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=purge_account
   &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
   &version=1.0</pre>
-          POST:
-          <pre>
+        POST:
+        <pre>
 user_id=485964685
 &timecode=2011-10-19T11%3A48%3A56Z</pre>
-        </p>
-        
-        <h3 id="#func_set_account_plan">set_account_plan</h2>
+
+        <h3 id="#func_set_account_plan">set_account_plan</h3>
         <p>
           Put an account onto one of the available GoSquared plans. <a href="https://www.gosquared.com/plans/" target="_blank">See available plans</a>.
-          <pre>
+        </p>
+        <pre>
 $user_id = 485964685
 $plan_name = 'standard';
-$admin_sdk = new GS_ADMIN_SDK();
-$res = $admin_sdk->set_account_plan($user_id, $plan_name);
-          </pre>
-          URL:
-          <pre>https://master.local/api/admin_api.php
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->set_account_plan($user_id, $plan_name);
+        </pre>
+        URL:
+        <pre>https://master.local/api/admin_api.php
   ?format=json
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=set_account_plan
   &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
   &version=1.0</pre>
-          POST:
-          <pre>
+        POST:
+        <pre>
 user_id=485964685
 &plan_name=standard
 &timecode=2011-10-19T11%3A48%3A56Z</pre>
-        </p>
-        
+
         <h2 id="sites">Sites</h2>
         <p>
           A user account has sites tracked by GoSquared. Typically, there will be one site per domain.
         </p>
-        
-        <h3 id="#func_create_site">create_site</h2>
+
+        <h3 id="#func_create_site">create_site</h3>
         <p>
           Create a site on a user account.
-          <pre>
+        </p>
+        <pre>
 $user_id = 485964685;
 $site_name = 'Test Site';
 $site_url = 'http://www.puddledu.ck';
-$admin_sdk = new GS_ADMIN_SDK();
-$res = $admin_sdk->create_site($user_id, $site_name, $site_url);
-          </pre>
-          URL:
-          <pre>https://master.local/api/admin_api.php
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->create_site($user_id, $site_name, $site_url);
+        </pre>
+        URL:
+        <pre>https://master.local/api/admin_api.php
   ?format=json
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=create_site
   &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
   &version=1.0</pre>
-          POST:
-          <pre>
+        POST:
+        <pre>
 user_id=485964685
 &site_name=Test+Site
 &site_url=http%3A%2F%2Fwww.gosquared.com%2F
 &timecode=2011-10-19T11%3A48%3A30Z</pre>
-        </p>
-        
-        <h3 id="#func_cancel_subscription">cancel_subscription</h2>
+
+        <!--<h3 id="#func_cancel_subscription">cancel_subscription</h2>
         <p>
           Cancel a subscription.
           <pre>
-$admin_sdk = new GS_ADMIN_SDK();
-$res = $admin_sdk->cancel_subscription($user_id);
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->cancel_subscription($user_id);
           </pre>
           URL:
           <pre>https://master.local/api/admin_api.php
@@ -284,8 +314,8 @@ $res = $admin_sdk->cancel_subscription($user_id);
           <pre>
 user_id=485964685
 &timecode=2011-10-19T11%3A48%3A56Z</pre>
-        </p>
-        
+        </p>-->
+
         <div class="footer">
           get the source code on GitHub : <a href="http://github.com/TheDeveloper/gosquared-admin-api-php-sdk">TheDeveloper/gosquared-admin-api-php-sdk</a>
         </div>
