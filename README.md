@@ -7,4 +7,4 @@ This simplifies the reselling process, so you can bring the power of [GoSquared 
 
 Whilst this project is a PHP SDK only, the admin API is REST so it is perfectly easy to use in other languages. All examples are accompanied by equivalent HTTP requests which you can use as reference.
 
-For instructions and examples, read the [Documentation](http://thedeveloper.github.com/gosquared-admin-api-php-sdk/)
+For instructions and examples, read the [Documentation](http://gosquared.github.com/gosquared-admin-api-php-sdk/)
