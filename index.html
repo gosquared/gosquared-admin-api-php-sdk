@@ -179,7 +179,7 @@ if($res->succeeded) $user_id = $res->data['user_id'];
           You create accounts for each user you want to sign up to GoSquared.
         </p>
 
-        <h3 id="#func_create_account">create_account</h3>
+        <h3 id="func_create_account">create_account</h3>
         <p>
           Create a user account.</p>
         <pre>
@@ -196,7 +196,7 @@ $res = $gosquared_admin->create_account($email, $password, $first_name, $last_na
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=create_account
-  &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   &version=1.0</pre>
         POST:
         <pre>
@@ -211,7 +211,7 @@ email=jemima@puddledu.ck
         </table>
 
 
-        <h3 id="#func_modify_account">modify_account</h3>
+        <h3 id="func_modify_account">modify_account</h3>
         <p>
           Modify a user account. Leave any arguments you don't wish to modify as null.
         </p>
@@ -230,7 +230,7 @@ $res = $gosquared_admin->modify_account($user_id, $email, $password, $first_name
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=modify_account
-  &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   &version=1.0</pre>
         POST:
         <pre>
@@ -244,7 +244,42 @@ user_id=485964685
           <tr><td><b>user_id</b></td><td>The unique numerical ID of the GoSquared account that was modified</td></tr>
         </table>
 
-        <h3 id="#func_purge_account">purge_account</h3>
+        <h3 id="func_get_account">get_account</h3>
+        <p>
+          Get information about a user account.
+        </p>
+        <pre>
+$user_id = 485964685;
+$gosquared_admin = new GS_ADMIN_SDK();
+$res = $gosquared_admin->modify_account($user_id);
+        </pre>
+        URL:
+        <pre>https://master.local/api/admin_api.php
+  ?format=json
+  &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
+  &env=sandbox
+  &mode=get_account
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  &version=1.0</pre>
+        POST:
+        <pre>
+user_id=485964685
+&email=john@puddledu.ck
+&password=anothertestpassword
+&first_name=John
+&timecode=2011-10-19T14%3A07%3A21Z</pre>
+        Response data:
+        <table>
+          <tr><td><b>user_id, account_code, id</b></td><td>The unique numerical ID of the GoSquared account</td></tr>
+          <tr><td><b>email</b></td><td></td></tr>
+          <tr><td><b>first_name</b></td><td></td></tr>
+          <tr><td><b>last_name</b></td><td></td></tr>
+          <tr><td><b>company_name</b></td><td>If there is one</td></tr>
+          <tr><td><b>created_at</b></td><td>Unix timestamp of when the account was created</td></tr>
+          <tr><td><b>api_key</b></td><td>The user's API key for use with the <a href="http://www.gosquared.com/developer/" target="_blank">GoSquared API</a></td></tr>
+        </table>
+
+        <h3 id="func_purge_account">purge_account</h3>
         <p>
           Purge an account. <b>Warning: This deletes everything for the account!</b>
         </p>
@@ -259,7 +294,7 @@ $res = $gosquared_admin->purge_account($user_id);
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=purge_account
-  &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   &version=1.0</pre>
         POST:
         <pre>
@@ -270,7 +305,7 @@ user_id=485964685
           <tr><td><b>user_id</b></td><td>The unique numerical ID of the GoSquared account that was purged</td></tr>
         </table>
 
-        <h3 id="#func_set_account_plan">set_account_plan</h3>
+        <h3 id="func_set_account_plan">set_account_plan</h3>
         <p>
           Put an account onto one of the available GoSquared plans. <a href="https://www.gosquared.com/plans/" target="_blank">See available plans</a>.
         </p>
@@ -286,7 +321,7 @@ $res = $gosquared_admin->set_account_plan($user_id, $plan_name);
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=set_account_plan
-  &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   &version=1.0</pre>
         POST:
         <pre>
@@ -304,7 +339,7 @@ user_id=485964685
           A user account has sites tracked by GoSquared. Typically, there will be one site per domain.
         </p>
 
-        <h3 id="#func_create_site">create_site</h3>
+        <h3 id="func_create_site">create_site</h3>
         <p>
           Create a site on a user account.
         </p>
@@ -321,7 +356,7 @@ $res = $gosquared_admin->create_site($user_id, $site_name, $site_url);
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=create_site
-  &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   &version=1.0</pre>
         POST:
         <pre>
@@ -335,7 +370,7 @@ user_id=485964685
           <tr><td><b>gstc</b></td><td>The javascript code that should be placed on the site to enable tracking</td></tr>
         </table>
 
-        <!--<h3 id="#func_cancel_subscription">cancel_subscription</h2>
+        <!--<h3 id="func_cancel_subscription">cancel_subscription</h2>
         <p>
           Cancel a subscription.
           <pre>
@@ -348,7 +383,7 @@ $res = $gosquared_admin->cancel_subscription($user_id);
   &api_key_hash=xxxxxxxxxxxxxxxxxxxxxxx
   &env=sandbox
   &mode=cancel_subscription
-  &sign=bafd3b1f187adc06ekf1024e6bae19756358ca34
+  &sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   &version=1.0</pre>
           POST:
           <pre>
