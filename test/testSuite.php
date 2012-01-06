@@ -193,6 +193,18 @@ class GoSquaredAdminSDKTest extends PHPUnit_Framework_TestCase{
       $this->objectHasAttribute('succeeded', $r);
       $this->assertTrue($r->succeeded);
     }
+   
+    /**
+     * @depends testCreateAccount
+     */
+
+    public function testGetAccount($createAccountResponse){
+      $r = $this->_sdk->get_account($createAccountResponse->data['user_id']);
+      $this->assertContainsOnly('object', array($r));
+      $this->objectHasAttribute('succeeded', $r);
+      $this->assertTrue($r->succeeded);
+      $this->objectHasAttribute('data', $r);
+    }
 
     /**
      * @depends testCreateAccount
