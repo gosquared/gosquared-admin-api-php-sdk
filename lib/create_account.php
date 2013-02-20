@@ -10,7 +10,9 @@ class func_create_account extends GS_ADMIN_SDK_request_model {
 	'last_name',
 	'referring_user',
 	'free_trial_end',
-  'referrer'
+  'externalref',
+  'desired_plan',
+  'extradata'
     );
 
     public function parse_response($data) {
