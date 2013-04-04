@@ -7,7 +7,8 @@ class func_create_subscription extends GS_ADMIN_SDK_request_model {
 	    'plan_code',
 	    'start_time',
 	    'billing_fields',
-	    'promo_code'
+	    'promo_code',
+	    'currency'
 	);
 
 	public function parse_response($data){
