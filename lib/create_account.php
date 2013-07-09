@@ -12,6 +12,7 @@ class func_create_account extends GS_ADMIN_SDK_request_model {
   	'free_trial_end',
     'externalref',
     'desired_plan',
+    'phone_number',
     'landing_page',
     'extradata'
   );
